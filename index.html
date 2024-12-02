@@ -5,12 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Retro de Paris Menu</title>
   <style>
+    /* Use Bauhaus 93 font (fallback to sans-serif if unavailable) */
+    @font-face {
+      font-family: "Bauhaus 93";
+      src: url('https://fonts.googleapis.com/css2?family=Bauhaus+93&display=swap');
+    }
+
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       text-align: center;
-      color: #2d5e2d;
+      color: #ffffff;
+      background-color: #1a2a3a;
     }
 
     /* Background Image with Blur */
@@ -27,22 +34,30 @@
     }
 
     header, footer {
-      background-color: rgba(45, 94, 45, 0.9);
+      background-color: #003366; /* Dark Blue */
       color: white;
       padding: 20px;
+    }
+
+    h1 {
+      font-family: "Bauhaus 93", sans-serif;
+      font-size: 3rem; /* Adjust size as needed */
+      color: white;
+      margin: 0;
     }
 
     .menu {
       max-width: 600px;
       margin: 20px auto;
       padding: 20px;
-      background-color: white;
+      background-color: white; /* White menu box */
+      color: #333; /* Dark text for better readability */
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     h2 {
-      border-bottom: 2px solid #2d5e2d;
+      border-bottom: 2px solid #003366;
       margin-bottom: 15px;
       padding-bottom: 5px;
     }
@@ -73,7 +88,6 @@
     <div class="menu-item"><span>Bylinkový čaj</span><span>2,50 €</span></div>
 
     <h2>Občerstvenie</h2>
-    <div class="menu-item"><span>Croissant</span><span>2,50 €</span></div>
     <div class="menu-item"><span>Muffin</span><span>2,75 €</span></div>
     <div class="menu-item"><span>Sušienka</span><span>1,50 €</span></div>
 
