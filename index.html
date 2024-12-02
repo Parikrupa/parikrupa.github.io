@@ -1,19 +1,91 @@
-<body bgcolor="#333333" text="#FFFFFF" link="#FFFFFF" alink="#FFFFFF" vlink="#FFFFFF">
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retro de Paris Menu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      color: #2d5e2d;
+    }
 
-    <h1 align="center">Fotky</h1>
+    /* Background Image with Blur */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.mywanderlust.pl/wp-content/uploads/2020/02/kosice-cafes-10.jpg') no-repeat center center/cover;
+      filter: blur(8px);
+      z-index: -1;
+    }
 
-    <table border="1" align="center" bordercolor="#CCCCCC">
-        <tr>
-            <td><a href="fotka1.html"><img src="fotky/fotka1.jpg" alt="fotka 1" width="200" height="200"></a></td>
-            <td><a href="fotka2.html"><img src="fotky/fotka2.jpg" alt="fotka 2" width="200" height="200"></a></td>
-            <td><a href="fotka3.html"><img src="fotky/fotka3.jpg" alt="fotka 3" width="200" height="200"></a></td>
-        </tr>
-        <tr>
-            <td><a href="fotka4.html"><img src="fotky/fotka4.jpg" alt="fotka 4" width="200" height="200"></a></td>
-            <td><a href="fotka5.html"><img src="fotky/fotka5.jpg" alt="fotka 5" width="200" height="200"></a></td>
-            <td><a href="fotka6.html"><img src="fotky/fotka6.jpg" alt="fotka 6" width="200" height="200"></a></td>
-        </tr>
-    </table>
+    header, footer {
+      background-color: rgba(45, 94, 45, 0.9);
+      color: white;
+      padding: 20px;
+    }
+
+    .menu {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      border-bottom: 2px solid #2d5e2d;
+      margin-bottom: 15px;
+      padding-bottom: 5px;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Retro de Paris</h1>
+  </header>
+
+  <div class="menu">
+    <h2>Káva</h2>
+    <div class="menu-item"><span>Espresso</span><span>2,50 €</span></div>
+    <div class="menu-item"><span>Americano</span><span>3,00 €</span></div>
+    <div class="menu-item"><span>Latte</span><span>3,50 €</span></div>
+    <div class="menu-item"><span>Cappuccino</span><span>3,50 €</span></div>
+
+    <h2>Čaj</h2>
+    <div class="menu-item"><span>Zelený čaj</span><span>2,00 €</span></div>
+    <div class="menu-item"><span>Chai Latte</span><span>3,00 €</span></div>
+    <div class="menu-item"><span>Bylinkový čaj</span><span>2,50 €</span></div>
+
+    <h2>Občerstvenie</h2>
+    <div class="menu-item"><span>Croissant</span><span>2,50 €</span></div>
+    <div class="menu-item"><span>Muffin</span><span>2,75 €</span></div>
+    <div class="menu-item"><span>Sušienka</span><span>1,50 €</span></div>
+
+    <h2>Pečivo</h2>
+    <div class="menu-item"><span>Croissant</span><span>2,50 €</span></div>
+    <div class="menu-item"><span>Bageta</span><span>3,00 €</span></div>
+    <div class="menu-item"><span>Bagel</span><span>2,75 €</span></div>
+  </div>
+
+  <footer>
+    &copy; 2024 Retro de Paris
+  </footer>
 
 </body>
 </html>
