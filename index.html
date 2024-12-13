@@ -1,105 +1,182 @@
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Retro de Paris Menu</title>
-  <style>
-    /* Use Bauhaus 93 font (fallback to sans-serif if unavailable) */
-    @font-face {
-      font-family: "Bauhaus 93";
-      src: url('https://fonts.googleapis.com/css2?family=Bauhaus+93&display=swap');
-    }
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raycasting Engine with Textures</title>
+<style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-      color: #ffffff;
-      background-color: #1a2a3a;
+        margin: 0;
+        background: #000;
+        overflow: hidden;
     }
-
-    /* Background Image with Blur */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('https://www.mywanderlust.pl/wp-content/uploads/2020/02/kosice-cafes-10.jpg') no-repeat center center/cover;
-      filter: blur(8px);
-      z-index: -1;
+    canvas {
+        display: block;
     }
-
-    header, footer {
-      background-color: #003366; /* Dark Blue */
-      color: white;
-      padding: 20px;
-    }
-
-    h1 {
-      font-family: "Bauhaus 93", sans-serif;
-      font-size: 3rem; /* Adjust size as needed */
-      color: white;
-      margin: 0;
-    }
-
-    .menu {
-      max-width: 600px;
-      margin: 20px auto;
-      padding: 20px;
-      background-color: white; /* White menu box */
-      color: #333; /* Dark text for better readability */
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    h2 {
-      border-bottom: 2px solid #003366;
-      margin-bottom: 15px;
-      padding-bottom: 5px;
-    }
-
-    .menu-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-    }
-  </style>
+</style>
 </head>
 <body>
+    <canvas id="gameCanvas"></canvas>
 
-  <header>
-    <h1>Retro de Paris</h1>
-  </header>
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
 
-  <div class="menu">
-    <h2>Káva</h2>
-    <div class="menu-item"><span>Espresso</span><span>2,50 €</span></div>
-    <div class="menu-item"><span>Americano</span><span>3,00 €</span></div>
-    <div class="menu-item"><span>Latte</span><span>3,50 €</span></div>
-    <div class="menu-item"><span>Cappuccino</span><span>3,50 €</span></div>
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
 
-    <h2>Čaj</h2>
-    <div class="menu-item"><span>Zelený čaj</span><span>2,00 €</span></div>
-    <div class="menu-item"><span>Chai Latte</span><span>3,00 €</span></div>
-    <div class="menu-item"><span>Bylinkový čaj</span><span>2,50 €</span></div>
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
-    <h2>Občerstvenie</h2>
-    <div class="menu-item"><span>Muffin</span><span>2,75 €</span></div>
-    <div class="menu-item"><span>Sušienka</span><span>1,50 €</span></div>
+const CELL_SIZE = 64;
+const FOV = 95 * (Math.PI / 180); // Updated FOV to 95 degrees
+const STRIP_WIDTH = 2;
+let NUM_RAYS = Math.ceil(canvas.width / STRIP_WIDTH);
+const VIEW_DIST = 1000;
+let wallTexture = new Image();
+wallTexture.src = "https://img.hockeyslovakia.sk/Player/228625/MarcoGALEANO.jpg";
 
-    <h2>Pečivo</h2>
-    <div class="menu-item"><span>Croissant</span><span>2,50 €</span></div>
-    <div class="menu-item"><span>Bageta</span><span>3,00 €</span></div>
-    <div class="menu-item"><span>Bagel</span><span>2,75 €</span></div>
-  </div>
+const player = {
+    x: 96,
+    y: 96,
+    angle: 0,
+    speed: 3,
+    rotSpeed: 0.05
+};
 
-  <footer>
-    &copy; 2024 Retro de Paris
-  </footer>
+const map = [
+    [1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,0,0,0,0,0,1,0,0,0,0,1],
+    [1,0,1,1,0,0,1,0,1,1,0,1],
+    [1,0,1,0,0,0,0,0,0,1,0,1],
+    [1,0,1,0,1,1,1,1,0,1,0,1],
+    [1,0,0,0,1,0,0,1,0,0,0,1],
+    [1,0,1,0,1,0,0,1,0,1,0,1],
+    [1,0,1,0,1,1,1,1,0,1,0,1],
+    [1,0,1,0,0,0,0,0,0,1,0,1],
+    [1,0,1,1,0,0,1,0,1,1,0,1],
+    [1,0,0,0,0,0,1,0,0,0,0,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1]
+];
 
+function castRay(angle) {
+    let rayX = player.x;
+    let rayY = player.y;
+    let rayAngle = angle % (2 * Math.PI);
+    if (rayAngle < 0) rayAngle += 2 * Math.PI;
+
+    const right = rayAngle < Math.PI * 0.5 || rayAngle > Math.PI * 1.5;
+    const up = rayAngle < Math.PI;
+
+    let distance = 0;
+    let hitWall = false;
+    let wallHitX = 0;
+    let wallHitY = 0;
+
+    while (!hitWall && distance < VIEW_DIST) {
+        distance += 1;
+        rayX = player.x + Math.cos(rayAngle) * distance;
+        rayY = player.y + Math.sin(rayAngle) * distance;
+
+        const mapX = Math.floor(rayX / CELL_SIZE);
+        const mapY = Math.floor(rayY / CELL_SIZE);
+
+        if (mapX < 0 || mapX >= map[0].length || mapY < 0 || mapY >= map.length) {
+            hitWall = true;
+            distance = VIEW_DIST;
+        } else if (map[mapY][mapX] === 1) {
+            hitWall = true;
+            wallHitX = rayX;
+            wallHitY = rayY;
+        }
+    }
+
+    const cosAngle = player.angle - rayAngle;
+    distance = distance * Math.cos(cosAngle);
+
+    return { distance, wallHitX, wallHitY };
+}
+
+function drawScene() {
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = '#333';
+    ctx.fillRect(0, 0, canvas.width, canvas.height / 2);
+
+    ctx.fillStyle = '#666';
+    ctx.fillRect(0, canvas.height / 2, canvas.width, canvas.height / 2);
+
+    NUM_RAYS = Math.ceil(canvas.width / STRIP_WIDTH);
+
+    for (let i = 0; i < NUM_RAYS; i++) {
+        const rayAngle = player.angle - (FOV / 2) + (FOV * i / NUM_RAYS);
+        const { distance, wallHitX, wallHitY } = castRay(rayAngle);
+
+        const wallHeight = (CELL_SIZE * canvas.height) / distance;
+        const hitCoord = Math.abs((wallHitX % CELL_SIZE) - (wallHitY % CELL_SIZE));
+        const textureX = Math.floor((hitCoord / CELL_SIZE) * wallTexture.width);
+
+        if (wallTexture.complete) {
+            ctx.drawImage(
+                wallTexture,
+                textureX, 0, 1, wallTexture.height,
+                i * STRIP_WIDTH, (canvas.height - wallHeight) / 2,
+                STRIP_WIDTH, wallHeight
+            );
+        } else {
+            const brightness = Math.min(1.0, 1.0 - (distance / VIEW_DIST));
+            const color = Math.floor(brightness * 255);
+            ctx.fillStyle = `rgb(${color}, ${color}, ${color})`;
+            ctx.fillRect(
+                i * STRIP_WIDTH,
+                (canvas.height - wallHeight) / 2,
+                STRIP_WIDTH,
+                wallHeight
+            );
+        }
+    }
+}
+
+function isColliding(x, y) {
+    const mapX = Math.floor(x / CELL_SIZE);
+    const mapY = Math.floor(y / CELL_SIZE);
+    return map[mapY] && map[mapY][mapX] === 1;
+}
+
+function update() {
+    let newX = player.x;
+    let newY = player.y;
+
+    if (keys['w']) {
+        newX += Math.cos(player.angle) * player.speed;
+        newY += Math.sin(player.angle) * player.speed;
+    }
+    if (keys['s']) {
+        newX -= Math.cos(player.angle) * player.speed;
+        newY -= Math.sin(player.angle) * player.speed;
+    }
+
+    if (!isColliding(newX, player.y)) player.x = newX;
+    if (!isColliding(player.x, newY)) player.y = newY;
+
+    if (keys['a']) player.angle -= player.rotSpeed;
+    if (keys['d']) player.angle += player.rotSpeed;
+}
+
+const keys = {};
+document.addEventListener('keydown', (e) => keys[e.key.toLowerCase()] = true);
+document.addEventListener('keyup', (e) => keys[e.key.toLowerCase()] = false);
+
+function gameLoop() {
+    update();
+    drawScene();
+    requestAnimationFrame(gameLoop);
+}
+
+wallTexture.onload = gameLoop;
+</script>
 </body>
 </html>
