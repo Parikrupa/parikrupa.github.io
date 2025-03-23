@@ -1,182 +1,194 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>sigma ohajo gejm</title>
-<style>
-    body {
-        margin: 0;
-        background: #000;
-        overflow: hidden;
-    }
-    canvas {
-        display: block;
-    }
-</style>
-</head>
-<body>
-    <canvas id="gameCanvas"></canvas>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>re:swap | Secondhand obchod Košice - Udržateľná móda</title>
+    <meta name="description" content="re:swap - Váš secondhand obchod v Košiciach. Udržateľná móda, kvalitné oblečenie z druhej ruky." />
+    <link rel="icon" type="image/svg+xml" href="./logo.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              cream: {
+                50: '#FFFDF7',
+              },
+              sage: {
+                50: '#F4F6F0',
+                100: '#E9EDE2',
+                200: '#D3DBCA',
+                300: '#BDC9B1',
+                400: '#A7B798',
+                500: '#91A57F',
+                600: '#7A8E68',
+                700: '#626F54',
+                800: '#4B5440',
+              },
+            },
+          },
+        },
+      }
+    </script>
+  </head>
+  <body class="bg-cream-50 text-sage-800">
+    <!-- Header -->
+    <header class="fixed w-full bg-cream-50/80 backdrop-blur-md shadow-sm z-50">
+      <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+          <img src="./logo.svg" alt="re:swap logo" class="h-8 w-8 transition-transform hover:rotate-180 duration-700">
+          <span class="text-2xl font-bold text-sage-700">re:swap</span>
+        </div>
+        <div class="hidden md:flex space-x-8">
+          <a href="#about" class="text-sage-600 hover:text-sage-800 transition-colors text-sm uppercase tracking-wider">O nás</a>
+          <a href="#location" class="text-sage-600 hover:text-sage-800 transition-colors text-sm uppercase tracking-wider">Lokácia</a>
+          <a href="#contact" class="text-sage-600 hover:text-sage-800 transition-colors text-sm uppercase tracking-wider">Kontakt</a>
+        </div>
+      </nav>
+    </header>
 
-<script>
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
+    <!-- Hero Section -->
+    <section class="pt-24 pb-12 md:pt-32 md:pb-20 bg-gradient-to-b from-cream-50 to-sage-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <span class="inline-block bg-sage-100 text-sage-700 px-4 py-1 rounded-full text-sm font-medium mb-6">✨ sustainable vibes only ✨</span>
+          <h1 class="text-4xl md:text-6xl font-bold text-sage-800 mb-6 leading-tight">
+            re:swap
+            <span class="block text-xl md:text-2xl text-sage-600 font-normal mt-4">tvoj nový obľúbený sustainable fashion spot</span>
+          </h1>
+          <p class="text-lg md:text-xl text-sage-600 mb-8 font-light">
+            secondhand. kvalita. štýl. udržateľnosť.
+          </p>
+          <a href="#about" class="inline-block bg-sage-600 text-white px-8 py-3 rounded-full hover:bg-sage-700 transition-all hover:shadow-lg transform hover:-translate-y-0.5">
+            objav viac
+          </a>
+        </div>
+      </div>
+    </section>
 
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-cream-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <div class="text-center mb-12">
+            <span class="text-sage-600 text-sm uppercase tracking-wider">naša story</span>
+            <h2 class="text-3xl font-bold text-sage-800 mt-2">prečo re:swap?</h2>
+          </div>
+          <div class="space-y-6 text-center">
+            <p class="text-sage-700 text-lg leading-relaxed">
+              re:swap je viac než len obchod. je to komunita. je to lifestyle. 
+              dávame druhú šancu nie len oblečeniu, ale aj planéte. 
+              každý kúsok je handpicked s láskou a ohľadom na kvalitu. 
+              #sustainablefashion #lesswastemorelife
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+    <!-- Location Section -->
+    <section id="location" class="py-16 bg-sage-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <span class="text-sage-600 text-sm uppercase tracking-wider">nájdeš nás tu</span>
+          <h2 class="text-3xl font-bold text-sage-800 mt-2">navštív náš space</h2>
+        </div>
+        <div class="max-w-3xl mx-auto">
+          <div class="bg-cream-50 rounded-2xl shadow-lg p-8">
+            <div class="text-center space-y-4">
+              <div class="inline-block bg-sage-100 text-sage-700 px-4 py-1 rounded-full text-sm font-medium">
+                📍 centrum mesta
+              </div>
+              <p class="text-sage-700 text-xl font-medium">
+                Hlavná 37/68
+              </p>
+              <p class="text-sage-600">
+                040 01 Košice<br>
+                Slovensko
+              </p>
+              <a 
+                href="https://maps.app.goo.gl/HCd86a3Vvbe2Ey8b7" 
+                target="_blank" 
+                class="inline-block bg-sage-600 text-white px-6 py-2 rounded-full hover:bg-sage-700 transition-all mt-4"
+              >
+                otvoriť v mapách
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-const CELL_SIZE = 64;
-const FOV = 95 * (Math.PI / 180); // Updated FOV to 95 degrees
-const STRIP_WIDTH = 2;
-let NUM_RAYS = Math.ceil(canvas.width / STRIP_WIDTH);
-const VIEW_DIST = 1000;
-let wallTexture = new Image();
-wallTexture.src = "https://img.hockeyslovakia.sk/Player/228625/MarcoGALEANO.jpg";
+    <!-- Contact & Hours Section -->
+    <section id="contact" class="py-16 bg-cream-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <div class="text-center mb-12">
+            <span class="text-sage-600 text-sm uppercase tracking-wider">zostaňme v kontakte</span>
+            <h2 class="text-3xl font-bold text-sage-800 mt-2">slide into our DMs</h2>
+          </div>
+          
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-sage-50 rounded-2xl p-8">
+              <h3 class="text-xl font-semibold mb-6 text-sage-800">kedy sme tu pre teba</h3>
+              <ul class="space-y-4">
+                <li class="flex justify-between items-center">
+                  <span class="text-sage-600">pondelok - piatok</span>
+                  <span class="text-sage-800 font-medium">10:00 - 18:00</span>
+                </li>
+                <li class="flex justify-between items-center">
+                  <span class="text-sage-600">sobota</span>
+                  <span class="text-sage-800 font-medium">09:00 - 13:00</span>
+                </li>
+                <li class="flex justify-between items-center">
+                  <span class="text-sage-600">nedeľa</span>
+                  <span class="text-sage-800 font-medium">zatvorené</span>
+                </li>
+              </ul>
+            </div>
 
-const player = {
-    x: 96,
-    y: 96,
-    angle: 0,
-    speed: 3,
-    rotSpeed: 0.05
-};
+            <div class="bg-sage-50 rounded-2xl p-8">
+              <h3 class="text-xl font-semibold mb-6 text-sage-800">spoj sa s nami</h3>
+              <ul class="space-y-4">
+                <li>
+                  <a href="mailto:info@reswap.sk" class="flex items-center space-x-2 text-sage-600 hover:text-sage-800 transition-colors">
+                    <span>📧</span>
+                    <span>info@reswap.sk</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="tel:+421912345678" class="flex items-center space-x-2 text-sage-600 hover:text-sage-800 transition-colors">
+                    <span>📱</span>
+                    <span>+421 912 345 678</span>
+                  </a>
+                </li>
+                <li class="pt-4">
+                  <div class="flex space-x-4">
+                    <a href="https://instagram.com/reswap" target="_blank" class="bg-sage-200 text-sage-700 px-4 py-2 rounded-full hover:bg-sage-300 transition-all">instagram</a>
+                    <a href="https://tiktok.com/reswap" target="_blank" class="bg-sage-200 text-sage-700 px-4 py-2 rounded-full hover:bg-sage-300 transition-all">tiktok</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-const map = [
-    [1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,0,0,0,0,0,1,0,0,0,0,1],
-    [1,0,1,1,0,0,1,0,1,1,0,1],
-    [1,0,1,0,0,0,0,0,0,1,0,1],
-    [1,0,1,0,1,1,1,1,0,1,0,1],
-    [1,0,0,0,1,0,0,1,0,0,0,1],
-    [1,0,1,0,1,0,0,1,0,1,0,1],
-    [1,0,1,0,1,1,1,1,0,1,0,1],
-    [1,0,1,0,0,0,0,0,0,1,0,1],
-    [1,0,1,1,0,0,1,0,1,1,0,1],
-    [1,0,0,0,0,0,1,0,0,0,0,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1]
-];
+    <!-- Footer -->
+    <footer class="bg-sage-800 text-white py-12">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="text-sage-200 text-sm">re:swap © 2024</p>
+          <p class="text-sage-400 mt-2 text-sm">
+            sustainable fashion • eco-friendly vibes • košice
+          </p>
+        </div>
+      </div>
+    </footer>
 
-function castRay(angle) {
-    let rayX = player.x;
-    let rayY = player.y;
-    let rayAngle = angle % (2 * Math.PI);
-    if (rayAngle < 0) rayAngle += 2 * Math.PI;
-
-    const right = rayAngle < Math.PI * 0.5 || rayAngle > Math.PI * 1.5;
-    const up = rayAngle < Math.PI;
-
-    let distance = 0;
-    let hitWall = false;
-    let wallHitX = 0;
-    let wallHitY = 0;
-
-    while (!hitWall && distance < VIEW_DIST) {
-        distance += 1;
-        rayX = player.x + Math.cos(rayAngle) * distance;
-        rayY = player.y + Math.sin(rayAngle) * distance;
-
-        const mapX = Math.floor(rayX / CELL_SIZE);
-        const mapY = Math.floor(rayY / CELL_SIZE);
-
-        if (mapX < 0 || mapX >= map[0].length || mapY < 0 || mapY >= map.length) {
-            hitWall = true;
-            distance = VIEW_DIST;
-        } else if (map[mapY][mapX] === 1) {
-            hitWall = true;
-            wallHitX = rayX;
-            wallHitY = rayY;
-        }
-    }
-
-    const cosAngle = player.angle - rayAngle;
-    distance = distance * Math.cos(cosAngle);
-
-    return { distance, wallHitX, wallHitY };
-}
-
-function drawScene() {
-    ctx.fillStyle = '#000';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.fillStyle = '#333';
-    ctx.fillRect(0, 0, canvas.width, canvas.height / 2);
-
-    ctx.fillStyle = '#666';
-    ctx.fillRect(0, canvas.height / 2, canvas.width, canvas.height / 2);
-
-    NUM_RAYS = Math.ceil(canvas.width / STRIP_WIDTH);
-
-    for (let i = 0; i < NUM_RAYS; i++) {
-        const rayAngle = player.angle - (FOV / 2) + (FOV * i / NUM_RAYS);
-        const { distance, wallHitX, wallHitY } = castRay(rayAngle);
-
-        const wallHeight = (CELL_SIZE * canvas.height) / distance;
-        const hitCoord = Math.abs((wallHitX % CELL_SIZE) - (wallHitY % CELL_SIZE));
-        const textureX = Math.floor((hitCoord / CELL_SIZE) * wallTexture.width);
-
-        if (wallTexture.complete) {
-            ctx.drawImage(
-                wallTexture,
-                textureX, 0, 1, wallTexture.height,
-                i * STRIP_WIDTH, (canvas.height - wallHeight) / 2,
-                STRIP_WIDTH, wallHeight
-            );
-        } else {
-            const brightness = Math.min(1.0, 1.0 - (distance / VIEW_DIST));
-            const color = Math.floor(brightness * 255);
-            ctx.fillStyle = `rgb(${color}, ${color}, ${color})`;
-            ctx.fillRect(
-                i * STRIP_WIDTH,
-                (canvas.height - wallHeight) / 2,
-                STRIP_WIDTH,
-                wallHeight
-            );
-        }
-    }
-}
-
-function isColliding(x, y) {
-    const mapX = Math.floor(x / CELL_SIZE);
-    const mapY = Math.floor(y / CELL_SIZE);
-    return map[mapY] && map[mapY][mapX] === 1;
-}
-
-function update() {
-    let newX = player.x;
-    let newY = player.y;
-
-    if (keys['w']) {
-        newX += Math.cos(player.angle) * player.speed;
-        newY += Math.sin(player.angle) * player.speed;
-    }
-    if (keys['s']) {
-        newX -= Math.cos(player.angle) * player.speed;
-        newY -= Math.sin(player.angle) * player.speed;
-    }
-
-    if (!isColliding(newX, player.y)) player.x = newX;
-    if (!isColliding(player.x, newY)) player.y = newY;
-
-    if (keys['a']) player.angle -= player.rotSpeed;
-    if (keys['d']) player.angle += player.rotSpeed;
-}
-
-const keys = {};
-document.addEventListener('keydown', (e) => keys[e.key.toLowerCase()] = true);
-document.addEventListener('keyup', (e) => keys[e.key.toLowerCase()] = false);
-
-function gameLoop() {
-    update();
-    drawScene();
-    requestAnimationFrame(gameLoop);
-}
-
-wallTexture.onload = gameLoop;
-</script>
-</body>
+  </body>
 </html>
