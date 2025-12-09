@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <title>Poznámkovo</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #8c5f47;
+            --bg: #f5f3ef;
+            --card: #ffffff;
+            --text-dark: #3d2f25;
+            --text-light: #6c5f55;
+        }
+
+        body {
+            margin: 0;
+            font-family: "IBM Plex Sans", sans-serif;
+            height: 100vh;
+            display: flex;
+            background: linear-gradient(145deg, #faf9f7, #f0ece7);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 90px;
+            background: #ffffffdd;
+            backdrop-filter: blur(8px);
+            border-right: 1px solid #e0d8d1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 0;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+        }
+
+        /* Square Buttons */
+        .menu-item {
+            width: 100%;
+            height: 90px;
+            border: 1px solid var(--primary);
+            border-radius: 0; /* no rounded corners */
+            background: #f7f4f1;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        .menu-item:hover {
+            background: #eee8e2;
+            border-color: var(--primary);
+        }
+
+        .menu-icon {
+            width: 32px;
+            height: 32px;
+            stroke: var(--primary); /* same color for all icons */
+            margin-bottom: 6px;
+        }
+
+        .menu-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        h2 {
+            margin: 0;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 22px;
+        }
+
+        .note-card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .note-area {
+            width: 100%;
+            height: 180px;
+            border-radius: 10px;
+            border: 1px solid #e3ddd7;
+            padding: 14px;
+            font-size: 15px;
+            color: var(--text-dark);
+            resize: none;
+            outline: none;
+        }
+
+        .feed {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .post {
+            background: var(--card);
+            padding: 18px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .post:hover {
+            background: #f0ece7;
+        }
+
+        .user {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .text {
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <!-- Upload -->
+        <button class="menu-item">
+            <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                 viewBox="0 0 24 24">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <div class="menu-text">Nahrať</div>
+        </button>
+
+        <!-- Notes with Book SVG -->
+        <button class="menu-item">
+            <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19V6.2C4 5.0799 4 4.51984 4.21799 4.09202C4.40973 3.71569 4.71569 3.40973 5.09202 3.21799C5.51984 3 6.0799 3 7.2 3H16.8C17.9201 3 18.4802 3 18.908 3.21799C19.2843 3.40973 19.5903 3.71569 19.782 4.09202C20 4.51984 20 5.0799 20 6.2V17H6C4.89543 17 4 17.8954 4 19Z" stroke="var(--primary)"/>
+                <path d="M4 19C4 20.1046 4.89543 21 6 21H20" stroke="var(--primary)"/>
+                <path d="M9 7H15" stroke="var(--primary)"/>
+                <path d="M9 11H15" stroke="var(--primary)"/>
+                <path d="M19 17V21" stroke="var(--primary)"/>
+            </svg>
+            <div class="menu-text">Poznámky</div>
+        </button>
+
+        <!-- Social -->
+        <button class="menu-item">
+            <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+                 viewBox="0 0 24 24">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+            <div class="menu-text">Sociálne</div>
+        </button>
+
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <div class="note-card">
+            <h2>Tvoja poznámka</h2>
+            <textarea class="note-area" placeholder="Napíš si svoju poznámku..."></textarea>
+        </div>
+
+        <div class="feed">
+            <h2>Social Feed</h2>
+
+            <div class="post">
+                <div class="user">@Janka</div>
+                <div class="text">Slovenčina Preskúšanie<br><em>Click to open</em></div>
+            </div>
+
+            <div class="post">
+                <div class="user">@Marek</div>
+                <div class="text">Matematika Domáca úloha<br><em>Click to open</em></div>
+            </div>
+
+            <div class="post">
+                <div class="user">@Lucia</div>
+                <div class="text">Biológia Zápisky<br><em>Click to open</em></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
